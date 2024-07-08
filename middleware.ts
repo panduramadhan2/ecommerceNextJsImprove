@@ -5,15 +5,15 @@
 // export const config = {
 //   matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 // };
-import { NextResponse } from "next/server";
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { NextResponse } from 'next/server';
+import { clerkMiddleware } from '@clerk/nextjs/server';
 
 // Define your public routes
-const publicRoutes = ["/api/:path*"];
+const publicRoutes = ['/api/:path*'];
 
 function isPublicRoute(pathname: string) {
   return publicRoutes.some((route) => {
-    const regex = new RegExp(`^${route.replace(/:\w+(\*)?/g, ".*")}$`);
+    const regex = new RegExp(`^${route.replace(/:\w+(\*)?/g, '.*')}$`);
     return regex.test(pathname);
   });
 }
@@ -33,5 +33,10 @@ export default function handler(req: any, ev: any) {
 }
 
 export const config = {
-  matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: [
+    '/((?!.*\\..*|_next).*)', 
+    '/', 
+    '/(api|trpc)(.*)',
+  ],
 };
+
