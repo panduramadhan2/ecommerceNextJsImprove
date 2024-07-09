@@ -1,42 +1,61 @@
-// import { clerkMiddleware } from "@clerk/nextjs/server";
+// // middleware.ts
 
-// export default clerkMiddleware();
+// import { clerkMiddleware } from "@clerk/nextjs/server";
+// import { NextResponse } from "next/server";
+
+// // Fungsi middleware Clerk
+// export default clerkMiddleware((req) => {
+//   return NextResponse.next();
+// });
+
+// // Konfigurasi matcher untuk mencocokkan rute
+// export const config = {
+//   matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
+// };
+
+// middleware.ts
+
+// import { clerkMiddleware } from "@clerk/nextjs/server";
+// import { NextResponse } from "next/server";
+
+// // Define your public routes
+// const publicRoutes = ["/api/:path*"];
+
+// function isPublicRoute(pathname: string) {
+//   return publicRoutes.some((route) => {
+//     const regex = new RegExp(`^${route.replace(/:\w+(\*)?/g, ".*")}$`);
+//     return regex.test(pathname);
+//   });
+// }
+
+// const middleware = clerkMiddleware();
+
+// export default function handler(req: any, ev: any) {
+//   const { pathname } = req.nextUrl;
+
+//   // If it's a public route, allow the request to proceed without Clerk's middleware
+//   if (isPublicRoute(pathname)) {
+//     return NextResponse.next();
+//   }
+
+//   // Otherwise, apply Clerk's middleware
+//   return middleware(req, ev);
+// }
 
 // export const config = {
 //   matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 // };
-import { NextResponse } from 'next/server';
-import { clerkMiddleware } from '@clerk/nextjs/server';
 
-// Define your public routes
-const publicRoutes = ['/api/:path*'];
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-function isPublicRoute(pathname: string) {
-  return publicRoutes.some((route) => {
-    const regex = new RegExp(`^${route.replace(/:\w+(\*)?/g, '.*')}$`);
-    return regex.test(pathname);
-  });
-}
+const isPublicRoute = createRouteMatcher(["/api/:path*"]);
 
-const middleware = clerkMiddleware();
-
-export default function handler(req: any, ev: any) {
-  const { pathname } = req.nextUrl;
-
-  // If it's a public route, allow the request to proceed without Clerk's middleware
-  if (isPublicRoute(pathname)) {
-    return NextResponse.next();
+export default clerkMiddleware((auth, request) => {
+  if (!isPublicRoute(request)) {
+    auth().protect();
   }
-
-  // Otherwise, apply Clerk's middleware
-  return middleware(req, ev);
-}
+});
 
 export const config = {
-  matcher: [
-    '/((?!.*\\..*|_next).*)', 
-    '/', 
-    '/(api|trpc)(.*)',
-  ],
+  matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 };
-
