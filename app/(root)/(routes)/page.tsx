@@ -23,18 +23,19 @@ const SetupPage = () => {
   }
 
   return (
-    <div className="p-4">
-      {/* <UserButton /> */}
-      {/* <Modal
-        title="Test Title"
-        description="test Description"
-        isOpen
-        onClose={() => {}}
-      >
-        Children
-      </Modal> */}
-      Root Page
-    </div>
+    // <div className="p-4">
+    //   {/* <UserButton /> */}
+    //   {/* <Modal
+    //     title="Test Title"
+    //     description="test Description"
+    //     isOpen
+    //     onClose={() => {}}
+    //   >
+    //     Children
+    //   </Modal> */}
+    //   Root Page
+    // </div>
+    null
   );
 };
 
