@@ -85,8 +85,8 @@ export const BannerForm: React.FC<BannerFormProps> = ({ initialData }) => {
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/banners/${params.bannerId}`);
       router.refresh();
-      router.push("/");
-      toast.success("Banner Toko berhasil dihapus");
+      router.push(`/${params.storeId}/banners`);
+      toast.success("Banner berhasil dihapus");
     } catch (error) {
       toast.error("Cek kembali data dan koneksi mu");
     } finally {

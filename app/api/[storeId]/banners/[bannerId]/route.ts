@@ -75,7 +75,7 @@ export async function PATCH(
 
 export async function DELETE(
     req: Request,
-    { params }: { params: { storeId: string, bannerId: string } }
+    { params }: { params: { storeId: string; bannerId: string } }
 ) {
     try {
         const { userId } = auth();
@@ -91,17 +91,17 @@ export async function DELETE(
         const storeByUserId = await db.store.findFirst({
             where: {
                 id: params.storeId,
-                userId
-            }
-        })
+                userId,
+            },
+        });
 
         if (!storeByUserId) {
-            return new NextResponse("Unauthorized", { status: 403 })
+            return new NextResponse("Unauthorized", { status: 403 });
         }
 
         const banner = await db.banner.deleteMany({
             where: {
-                id: params.storeId,
+                id: params.bannerId,
             },
         });
 
