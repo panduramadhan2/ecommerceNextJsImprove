@@ -32,6 +32,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   if (!isMounted) {
     return null;
   }
+
   return (
     <div>
       <div className="mb-4 flex items-center gap-4">
@@ -50,12 +51,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                 <Trash className="h-4 w-4" />
               </Button>
             </div>
-
             <Image fill className="object-cover" alt="Image" src={url} />
           </div>
         ))}
       </div>
-      <CldUploadWidget onSuccess={onUpload} uploadPreset="bah6b2m4">
+      <CldUploadWidget onUpload={onUpload} uploadPreset="bah6b2m4">
         {({ open }) => {
           const onClick = () => {
             open();
