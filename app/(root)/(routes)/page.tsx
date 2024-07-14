@@ -18,9 +18,9 @@ const SetupPage = () => {
     }
   }, [isOpen, onOpen]);
 
-  // if (!isSignedIn) {
-  //   return <RedirectToSignIn />;
-  // }
+  if (!isSignedIn) {
+    return <RedirectToSignIn />;
+  }
 
   return (
     // <div className="p-4">
