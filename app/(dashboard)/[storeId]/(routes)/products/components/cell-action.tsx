@@ -1,6 +1,5 @@
 "use client";
 
-import axios from "axios";
 import toast from "react-hot-toast";
 import {
   DropdownMenu,
@@ -9,6 +8,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
+import axios from "axios";
 import { ProductColumn } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
@@ -21,13 +22,11 @@ interface CellActionProps {
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
-  //   console.log("ini data", data);
-
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-
   const router = useRouter();
   const params = useParams();
+
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
     toast.success("Product Id berhasil di copy");
@@ -39,7 +38,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       await axios.delete(`/api/${params.storeId}/products/${data.id}`);
       router.refresh();
       router.push(`/${params.storeId}/products`);
-      toast.success("Produk Toko berhasil dihapus");
+      toast.success("Produk berhasil dihapus");
     } catch (error) {
       toast.error("Cek kembali data dan koneksi mu");
     } finally {
@@ -47,6 +46,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       setOpen(false);
     }
   };
+
   return (
     <>
       <AlertModal
@@ -63,7 +63,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Action</DropdownMenuLabel>
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem onClick={() => onCopy(data.id)}>
             <Copy className="mr-2 h-4 w-4" />
             Copy Id
@@ -74,7 +74,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             }
           >
             <Edit className="mr-2 h-4 w-4" />
-            Udate
+            Update
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4" />

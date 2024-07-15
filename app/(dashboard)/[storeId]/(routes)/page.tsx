@@ -6,9 +6,12 @@ interface DashboardPageProps {
 
 const DashboardPage = async ({ params }: DashboardPageProps) => {
   const store = await db.store.findFirst({
-    where: { id: params.storeId },
+    where: {
+      id: params.storeId,
+    },
   });
-  return <div>Active Store = {store?.name}</div>;
+
+  return <div>Active Store: {store?.name}</div>;
 };
 
 export default DashboardPage;

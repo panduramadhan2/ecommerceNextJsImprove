@@ -17,6 +17,7 @@ interface BannerClientProps {
 export const BannerClient: React.FC<BannerClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -30,7 +31,7 @@ export const BannerClient: React.FC<BannerClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
-      <DataTable data={data} columns={columns} searcKey="label" />
+      <DataTable data={data} columns={columns} searchKey="label" />
       <Heading title="API" description="API untuk Banners" />
       <Separator />
       <ApiList namaIndikator="banners" idIndikator="bannerId" />
